@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Hóa đơn</title>
+
+    <!-- Custom fonts for this template-->
+    <link rel="icon" href="../img/store.png">
+    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://unpkg.com/bootstrap-table@1.21.3/dist/bootstrap-table.min.css" rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <%- include('../component/sidebar') %>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <%- include('../component/toolbar.ejs') %>
+
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">Hóa đơn</h1>
+                    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                class="fas fa-download fa-sm text-white-50"></i> Xuất hóa đơn</a>
+                </div>
+                <!-- Content Row -->
+
+                <!--search table-->
+                <input type="text" class="form-control mb-1" id="myInput"
+                       placeholder="Search for...">
+                <!-- Content Row -->
+                <table class="table table-bordered" id="dtBasicExample"
+                       data-toggle="table"
+                       data-flat="true">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col" data-sortable="true">#</th>
+                        <th scope="col" data-sortable="true">ID Hóa đơn</th>
+                        <th scope="col" data-sortable="true">Đơn giá</th>
+                        <th scope="col" data-sortable="true">Thời gian</th>
+                        <th scope="col" data-sortable="true">Trạng thái</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody id="myTable">
+
+                    <% console.log(data) %>
+
+                    <% for (var i = 0;i < data.length;i++){
+                        var d = new Date(`${data[i].dateCreated}`);
+                        var t = d.toLocaleDateString('en-ZA')
+
+                        var m = new Intl.NumberFormat('vi-VN', {
+                            style: 'currency',
+                            currency: 'VND'
+                        }).format(data[i].totalPrice);
+                    %>
+                    <!--START ITEM-->
+                    <tr>
+                        <th scope="row"><%= i + 1 %></th>
+                        <td><%= data[i]._id %></td>
+                        <td><%= m %></td>
+                        <td><%= t %></td>
+                        <% if (data[i].invoiceType === 'IMPORT') { %>
+                            <td>
+                                <span class="badge rounded-pill badge-success"><%= data[i].invoiceType %></span>
+                            </td>
+                        <% }else if (data[i].invoiceType === 'EXPORT'){ %>
+                            <td>
+                                <span class="badge rounded-pill badge-info"><%= data[i].invoiceType %></span>
+                            </td>
+                        <% } else if (data[i].invoiceType === 'REFUND'){ %>
+                            <td>
+                                <span class="badge rounded-pill badge-warning"><%= data[i].invoiceType %></span>
+                            </td>
+                        <% } %>
+                        <td class="d-flex justify-content-center">
+                            <a class="btn btn-info" href="/bill/<%= data[i]._id %>">
+                                Chi tiết
+                            </a>
+                        </td>
+                    </tr>
+                    <!--END ITEM-->
+                    <% } %>
+
+                    </tbody>
+                </table>
+
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <%- include('../component/footer') %>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<%- include('../component/modalLogout') %>
+
+<!-- Import JavaScript-->
+<%- include('../component/importScripts.ejs') %>
+<script src="../js/bill.js"></script>
+
+</body>
+
+</html>

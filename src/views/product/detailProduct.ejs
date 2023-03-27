@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Chi tiết sản phẩm</title>
+
+    <!-- Custom fonts for this template-->
+    <link rel="icon" href="../img/store.png">
+    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://unpkg.com/bootstrap-table@1.21.3/dist/bootstrap-table.min.css" rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link href="../css/sb-admin-2.min.css" rel="stylesheet">
+
+</head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <%- include('../component/sidebar') %>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <%- include('../component/toolbar.ejs') %>
+
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+                <% console.log(data) %>
+
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-3">
+                    <h1 class="h3 mb-0 text-gray-800">Chi tiết sản phẩm</h1>
+                    <div>
+                        <button id="btnOpenModalUpdate"
+                                class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"
+                                onclick="openAddProductModal(value)" style="width: 5rem" value='<%= data._id %>'>
+                            <i class="fas fa-pen fa-sm text-white-50"></i> Sửa
+                        </button>
+
+                        <button class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm"
+                                value="<%= data._id %>"
+                                onclick="openConfirmDeleteModal(value)" style="width: 5rem">
+                            <i class="fas fa-trash fa-sm text-white-50"></i> Xóa
+                        </button>
+
+                    </div>
+                </div>
+                <div>
+                    <strong><h3 class="d-flex justify-content-center"><%= data.productName %></h3></strong>
+                </div>
+                <table class="table table-">
+                    <tbody>
+                    <tr class="row">
+                        <td class="col"><span class="p_specification"><strong>Bar code :</strong></span></td>
+                        <td class="col"><%= data.barcode %> </td>
+                    </tr>
+                    <tr class="row">
+                        <td class="col"><span class="p_specification"><strong>Ngành hàng :</strong></span></td>
+                        <td class="col"><%= data.industry.industryName %></td>
+                    </tr>
+                    <tr class="row">
+                        <td class="col"><span class="p_specification"><strong>Nhà cung cấp :</strong></span></td>
+                        <td class="col"><%= data.supplier.supplierName %></td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <div><strong>Số lượng hàng theo từng lần nhập:</strong></div>
+                <table class="table table-bordered" id="dtBasicExample"
+                       data-toggle="table"
+                       data-flat="true">
+                    <thead class="thead-dark" style="background-color: #4e73df">
+                    <tr>
+                        <th scope="col" data-sortable="true">#</th>
+                        <th scope="col" data-sortable="true">Ngày nhập</th>
+                        <th scope="col" data-sortable="true">HSD</th>
+                        <th scope="col" data-sortable="true">Số lượng</th>
+                    </tr>
+                    </thead>
+                    <tbody id="myTable">
+                    <!--START ITEM-->
+                    <%
+                    function formatDate(date) {
+                        var d = new Date(`${date}`);
+                        var d2 = d.toLocaleDateString('en-ZA');
+                        var datePart = d2.match(/\d+/g),
+                                year = datePart[0].substring(0), // get only two digits
+                                month = datePart[1], day = datePart[2];
+
+                        return day + '/' + month + '/' + year;
+                    }
+                    if (data.expires.length === 0){ %>
+                        <tr>
+                            <th colspan="4" scope="row">Sản phẩm này chưa nhập hàng</th>
+
+                        </tr>
+                    <% }
+                    for (var i = 0; i < data.expires.length; i++) {
+                        var t = formatDate(data.expires[i].expiryDate);
+                        var t2 = formatDate(data.expires[i].createdAt);
+                    %>
+                    <tr>
+                        <th scope="row"><%= i + 1 %></th>
+                        <td><%= t2 %></td>
+                        <td><%= t %></td>
+                        <td><%= data.expires[i].quantity %></td>
+                    </tr>
+                    <% } %>
+                    <!--END ITEM-->
+
+                    </tbody>
+                </table>
+
+
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <%- include('../component/footer') %>
+        <!-- End of Footer -->
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+
+<!--Update product modal-->
+<%- include('../product/modalUpdateProduct.ejs') %>
+<!--confirm delete product-->
+<%- include('../component/modalConfirmDelete.ejs') %>
+<!--confirm success product-->
+
+<!-- Logout Modal-->
+<%- include('../component/modalLogout') %>
+
+<!-- Import JavaScript-->
+<%- include('../component/importScripts.ejs') %>
+<script src="../js/product.js"></script>
+</body>
+
+</html>

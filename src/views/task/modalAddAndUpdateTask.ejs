@@ -1,0 +1,72 @@
+<div id="modalTask" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog"
+     aria-labelledby="modalDetailSupplier"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content p-4">
+            <div class="modal-header">
+                <h5 class="modal-title" id="titleModalTask"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="text-center">
+                <div class="spinner-border text-primary " role="status"
+                     id="loadingTask">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="modal-body fixed-height overflow-y: initial">
+                    <div class="d-flex justify-content-end" id="idTask"></div>
+                    <!--Người giao-->
+                    <div class="form-group">
+                        <label for="nameTask">Người giao task:</label>
+                        <input type="text" class="form-control" id="taskBy" disabled
+                               placeholder="Người giao task">
+                    </div>
+                    <div class="form-group">
+                        <label for="nameTask">Tên task: </label>
+                        <input type="text" class="form-control" id="nameTask"
+                               placeholder="Tên task">
+                    </div>
+
+                    <!--Người nhận-->
+                    <div class="form-group">
+                        <label for="taskTo">Người nhận task:</label>
+                        <select class="form-control" id="taskTo">
+                        </select>
+                    </div>
+                    <!--Mô tả-->
+                    <div class="form-group">
+                        <label for="taskTo">Người nhận task:</label>
+                        <select class="form-control" id="taskTo">
+                        </select>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+
+                <button class="btn btn-outline-danger"
+                        style="width: 5rem" data-dismiss="modal">Hủy
+                </button>
+
+                <div id="btnUpdateTask" class="btn btn-success" style="width: 6rem">
+                    <div id="loadingUpdateTask" class="spinner-border spinner-border-sm" style="display: none"
+                         role="status">
+                    </div>
+                    Lưu
+                </div>
+                <!---->
+                <div id="btnAddTask" class="btn btn-success" style="width: 6rem">
+                    <div id="loadingAddTask" class="spinner-border spinner-border-sm" style="display: none"
+                         role="status">
+                    </div>
+                    Thêm
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

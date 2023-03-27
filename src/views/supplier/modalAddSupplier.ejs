@@ -1,0 +1,56 @@
+<div id="modalSupplier" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog"
+     aria-labelledby="modalDetailSupplier"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content p-4">
+            <div class="modal-header">
+                <h5 class="modal-title" id="titleModalSupplier"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="text-center">
+                <div class="spinner-border text-primary " role="status"
+                     id="loadingSupplier">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <!--Ten-->
+                <div class="form-group">
+                    <label for="nameProduct">Tên nhà cung cấp: </label>
+                    <input type="text" class="form-control" id="nameSupplier"
+                           placeholder="Ten nhà cung cấp">
+                </div>
+                <!--So dien thoai-->
+                <div class="form-group">
+                    <label for="nameProduct">Số điện thoại: </label>
+                    <input type="text" class="form-control" id="phoneNumberSupplier"
+                           placeholder="Số điện thoại nhà cung cấp">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+
+                <button class="btn btn-outline-danger"
+                        style="width: 5rem" data-dismiss="modal">Hủy
+                </button>
+
+                <div id="btnUpdateSupplier" class="btn btn-success">
+                    <div id="loadingUpdate" class="spinner-border spinner-border-sm" style="display: none"
+                         role="status">
+                    </div>
+                    Lưu
+                </div>
+                <!---->
+                <div id="btnAddSupplier" class="btn btn-success">
+                    <div id="loadingAddSupplier" class="spinner-border spinner-border-sm" style="display: none"
+                         role="status">
+                    </div>
+                    Thêm
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
